@@ -1,0 +1,115 @@
+> create new project----->
+Install Virtual Environment--> python -m venv djangoenv
+Activate your virtual environment--> djangovenv\Scripts\activate
+
+> create project with env setup --> crawlonclick
+> pip install django
+> (it is included the other packages too To make sure we have latest version of pip--> pip install --upgrade pip)
+> Creating project --> django-admin startproject crawlonclick
+> cd in this new project directory --> cd crawlonclick
+> create new application --> python manage.py startapp crawling_ui
+> to run the server --> python manage.py runserver
+> (If you want to change the server’s port, pass it as a command-line argument.
+> For instance, this command starts the server on port 8080: -->python manage.py runserver 8080)
+> python manage.py makemigrations
+> python manage.py migrate
+> create the superuser in admin login--> python manage.py createsuperuser
+username: admin
+email: sonrajbrijesh@gmail.com
+password: admin$
+
+> in setting.py add ur app in installed apps--> like 'crawling_ui'
+> in views--> create function or class
+> To create a URLconf create new python file () --> like  'urls'
+> in app/urls--> import view and urlpatterns of view class and functions
+>The next step is to point the root URLconf at the polls.urls module
+In site/urls.py, add an import for django.urls.include and insert an include() in the urlpatterns list
+> see index --> python manage.py runserver
+
+> for mongodb database connection string in views:
+# client = MongoClient('mongodb+srv://birjoo:Brijesh37037$@cluster0.qaot0.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
+--------------------------------------------------------------------------------
+> in models(allow to store data in database in specific way)
+ defines tables of database--> like class user and client tasks
+> in project urls give path of app.urls using include is called URLconf
+> in admin register your models
+> python manage.py makemigrations
+> python manage.py migrate
+
+=== USER
+> in model --->from django.contrib.auth.models import User
+> from django.utils.text import slugify
+> user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
+> slug = models.SlugField(null=True, blank=True)
+
+===file upload
+> create media folder like in myfirstapp(in your project)
+> in model --> report = models.FileField(upload_to='media/', null=True, blank=True)
+> in settings --> MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+> in project urls --> urlpatterns += static(settings.MEDIA_URL,
+                      document_root=settings.MEDIA_ROOT)
+
+--------------------------------------------------------------------------------------
+Template integratons:
+> create folder templates and static in app
+> download new template
+> all the folder of new tepmlate paste to the static
+> html files paste to template like index..
+> setting: in last:
+# import os
+# STATIC_URL = '/static/'
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static')  ]
+> remove :
+<!-- <!DOCTYPE html> --> >> {% load static %}
+>in all href add--> {% static %}
+
+
+
+-----------------------------------------------------------------------------------
+> create template:
+
+> create new directory in app(crawling_ui)--> like templates
+> in templates create html file --> like hello.html file
+> write html code in hello.html file --> like <h1>welcome to app...</h1>
+------------------------------------------------------------------------------------
+> in terminal open python shell
+> python manage.py shell
+>>> from django.conf import settings
+>>> settings.BASE_DIR -->PosixPath('/home/tupibirjoo/Desktop/crawlonclick/crawlonclick')  # path display copy path
+>>> import os
+>>> BASE_DIR = settings.BASE_DIR
+>>> os.path.join(BASE_DIR, 'templates')
+--> '/home/tupibirjoo/Desktop/crawlonclick/crawlonclick/templates'
+> exit()
+-----------------------------------------------------------------------
+> in views create class --> like def about(request):
+                                    return render(request,"hello.html")
+> python manage.py runserver
+-------------------------------------------------------------------------------------------
+> bootstrap: https://getbootstrap.com/docs/5.1/getting-started/introduction/
+> getbootstrap>documnentation>copy starter template code and paste in hello.html>you can edit in body.
+------------------------------------------------------------------------------------------------------
+create app:
+> python manage.py startapp appname
+> model-->
+> class BlogPost(model.Model):
+>   title = models.TextField()
+> settings in installed app write--> 'appname'
+> python manage.py makemigrations
+> python manage.py migrate
+>save to database:
+> in model-->
+# class Blog:
+#   title  = 'hello world'
+#   content = 'something cool'
+---------------------------------------------------------------------------
+
+a,url--url-----<a href="{% url 'index' %' %}">Home</a>
+css,js--static-----<link rel="stylesheet" href="{% static 'css/styles.css' %' %}">
+img,src,js,css--    static
+
+<img src="{% static 'catalog/images/local_library_model_uml.png' %' %}" alt="UML diagram"
+style="width:555px;height:540px;">
+<li><a href="{% url 'index' %' %}">Home</a></li>
