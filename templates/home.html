@@ -1,0 +1,218 @@
+{% load static %}
+<!-- <!DOCTYPE html> -->
+<html lang="en" class="scroll-smooth">
+{% include "header.html" %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+#jobs {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#contacts {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#jobs td, #jobs th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#contacts td, #contacts th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#jobs tr:nth-child(even){background-color: #f2f2f2;}
+#contacts tr:nth-child(even){background-color: #f2f2f2;}
+
+#jobs tr:hover {background-color: #ddd;}
+#contacts tr:hover {background-color: #ddd;}
+
+#jobs th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04aaa4;
+  color: white;
+}
+#contacts th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04aaa4;
+  color: white;
+}
+</style>
+<body>
+<!-- ====== Hero Section Start -->
+<div id="home" class="relative pt-[120px] md:pt-[130px] lg:pt-[160px] bg-primary">
+    <div class="container">
+        <div class="flex flex-wrap items-center -mx-4">
+            <div class="w-full px-4">
+                <div
+                        class="
+                hero-content
+                text-center
+                max-w-[780px]
+                mx-auto
+                wow
+                fadeInUp
+              "
+                        data-wow-delay=".2s"
+                >
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ====== Hero Section End -->
+<br/><br/>
+<p style="color: blue;">Once new Job will be created, Admin will contact you for more details or else please contact sonrajbrijesh@gmail.com</p>
+<form action="{% url 'new_job' %}" method="post">
+    {% csrf_token %}
+    <input
+            type="text"
+            placeholder="New Job Name"
+            name="new_job_name"
+            class="
+                      rounded-md
+                      border
+                      bordder-[#E9EDF4]
+                      py-3
+                      px-5
+                      bg-[#FCFDFE]
+                      text-base text-body-color
+                      placeholder-[#ACB6BE]
+                      outline-none
+                      focus-visible:shadow-none
+                      focus:border-primary
+                      transition
+                    "
+            required/>
+    <input
+            placeholder="Website URL"
+            name="website_url"
+            id="website_url"
+            type="url"
+            class="
+                      rounded-md
+                      border
+                      bordder-[#E9EDF4]
+                      py-3
+                      px-5
+                      bg-[#FCFDFE]
+                      text-base text-body-color
+                      placeholder-[#ACB6BE]
+                      outline-none
+                      focus-visible:shadow-none
+                      focus:border-primary
+                      transition
+                    "
+            required/>
+    <input
+            type="submit"
+            value="New Job"
+            class="
+                      rounded-md
+                      border
+                      bordder-primary
+                      py-3
+                      px-5
+                      bg-primary
+                      text-base text-white
+                      cursor-pointer
+                      hover:shadow-md
+                      transition
+                      duration-300
+                      ease-in-out
+                    "
+    />
+</form>
+</br></br>
+
+<table id="jobs">
+    <tr>
+        <th style="display:none;">Job ID</th>
+        {% if user.is_superuser %}
+        <th>User ID</th>
+        {% endif %}
+        <th>Job Name</th>
+        <th>Spider Name</th>
+        <th>Website URL</th>
+        <th>Run</th>
+        {% if user.is_superuser %}
+        <th>Action</th>
+        {% endif %}
+    </tr>
+    {% for job in jobs %}
+    <TR>
+
+        <TD class="c0" style="display: none;">{{job.job_id}}</TD>
+        {% if user.is_superuser %}
+        <TD class="user_id">{{job.user_id}}</TD>
+        {% endif %}
+        <TD class="c1">{{job.name}}</TD>
+        <TD class="c2">{{job.spider_name}}</TD>
+        <TD class="c3">{{job.website_url}}</TD>
+        <TD class="c4">
+            <form action="{% url 'runspider' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" name="spider_name"
+                        class=" rounded-md border border-primary py-1 px-3 bg-primary text-base text-white cursor-pointer hover:shadow-md transition duration-300 ease-in-out"
+                        value={{job.spider_name}}>Run Spider
+                </button>
+            </form>
+        </TD>
+        {% if user.is_superuser %}
+        <TD class="c5">
+            <form action="{% url 'delete_job' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" name="job_id"
+                        class=" rounded-md border border-primary py-1 px-3 bg-primary text-base text-white cursor-pointer hover:shadow-md transition duration-300 ease-in-out"
+                        style="background-color: #ff3c00;"
+                        value={{job.job_id}}>Delete
+                </button>
+            </form>
+        </TD>
+        {% endif %}
+    </TR>
+    {% endfor %}
+    </table>
+        {% if user.is_superuser %}
+       <table id="contacts">
+        <tr>
+            <th>Contact ID</th>
+            <th>Full Name</th>
+            <th>Email</th>
+        <th>Phone</th>
+            <th>Message</th>
+            <th>Action</th>
+      </tr>
+    {% for contact in contacts %}
+    <TR>
+        <TD class="c0">{{contact.contact_id}}</TD>
+        <TD class="c1">{{contact.full_name}}</TD>
+       <TD class="c2">{{contact.email}}</TD>
+            <TD class="c3">{{contact.phone}}</TD>
+        <TD class="c4">{{contact.message}}</TD>
+            </TD>
+                <TD class="c5">
+                <form action="{% url 'mark_as_read' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" name="contact_id" class=" rounded-md border border-primary py-1 px-3 bg-primary text-base text-white cursor-pointer hover:shadow-md transition duration-300 ease-in-out"
+                        style="background-color: #ff3c00;"
+                        value={{contact.contact_id}}>Delete</button>
+                </form>
+            </TD>
+    </TR>
+    {% endfor %}
+</table>
+{% endif %}
+</body>
+</html>
+
