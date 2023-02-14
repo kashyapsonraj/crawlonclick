@@ -31,4 +31,9 @@ urlpatterns = [
     path('pricing', views.pricing, name='pricing'),
     path('contact', views.contact, name='contact'),
     path('about', views.about, name='about'),
+    path('subscription', views.subscription, name='subscription'),
+    # path('dumy', views.dumy, name='dumy'),
+    path('thanks/', views.thanks, name='thanks'),
+    path('query', views.query, name='query'),
+    # path('checkout/', views.checkout, name='checkout')
 ]
