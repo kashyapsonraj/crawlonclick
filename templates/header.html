@@ -64,6 +64,23 @@
           </div>
           <div class="">
             {% if user.is_authenticated %}
+<!--            start guide btn-->
+             <div style="float:left;">
+              <a
+                href="{% url 'quick' %}"
+                class="
+                  text-base
+                  font-medium
+                  text-white
+                  hover:opacity-70
+                  py-3
+                  px-7
+                  loginBtn
+                "
+              >
+                Quick Start Guide
+              </a>
+              </div>
               <div style="float: left;">
               <a
                 href="{% url 'home' %}"

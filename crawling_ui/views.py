@@ -252,3 +252,9 @@ def thanks(request):
 def query(request):
     template = 'query.html'
     return render(request, template)
+
+
+@login_required
+def quick(request):
+    template = 'quick.html'
+    return render(request, template)

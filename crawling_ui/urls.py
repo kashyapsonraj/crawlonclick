@@ -35,5 +35,6 @@ urlpatterns = [
     # path('dumy', views.dumy, name='dumy'),
     path('thanks/', views.thanks, name='thanks'),
     path('query', views.query, name='query'),
+    path('quick', views.quick, name='quick'),
     # path('checkout/', views.checkout, name='checkout')
 ]
