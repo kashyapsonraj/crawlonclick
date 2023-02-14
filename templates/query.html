@@ -1,0 +1,176 @@
+{% include "header.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>query builder</title>
+
+    <style>
+        .url{
+            width: 400px;
+            border-radius: 4px;
+            padding: 5px;
+            border: 0px;
+        background-color:lavender;
+        }
+        .u2{
+            color: white;
+            cursor: pointer;
+            background-color: blue;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            padding: 5px;
+            width: 100px;
+            border: 0px;
+            border-radius: 11px;
+        }
+        .url2{
+            border: 0px;
+            background-color:lavender;
+        }
+        .u1{
+            color: black;
+
+        }
+        .ch{
+            display: flex;
+        }
+        .col{
+            color: #777;
+        }
+        body {
+  margin: 40px;
+  background:#bbdefb;
+            }
+
+.wrapper {
+  display: grid;
+  align-items: center;
+  text-align: center;
+  grid-template-columns: 100px 100px 100px;
+  grid-gap: 10px;
+  row-gap: 23px;
+  background-color: #fff;
+  color: #444;
+  justify-items: center;
+        }
+
+.box {
+  background-color: blue;
+  color: #fff;
+  border-radius: 5px;
+
+  padding: 9px;
+  width: 85px;
+  margin-block: 10px;
+  cursor: pointer;
+
+    }
+    .sp{
+        color:black;
+    }
+    #sp1{
+        text-align: left;
+        color: #7db5a2;
+    }
+    .heading{
+        font-size: x-large;
+        margin-left: -42px;
+        margin-top: -40px;
+        margin-bottom: 36px;
+        background-size: 100px;
+        background-color: rgb(48 86 211);
+        text-align: center;
+        color: white;
+        width: 104.5%;
+        height: 300px;
+        padding: 10px;
+    }
+    .main{
+    padding-left: 187px;
+    padding-right: 654px;
+    background-color: aliceblue;
+    border-radius: 17px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    }
+    .u2:hover{
+        -webkit-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  transform: scale(1.2);
+    }
+    #wrap{
+        background-color: aliceblue;
+    }
+    .m1{
+        padding-left: 30px;
+    }
+    </style>
+</head>
+<body>
+
+    <div class="heading">
+        <br><br><br>
+        <br>
+      <h1 class="m1"> Build Query</h1>
+    </div>
+
+    <br>
+    <div class="main">
+    <div class="pr">
+    <h1>Pre-Built Data</h1>
+    </div>
+    <div class="wrapper" id="wrap">
+        <div class="amazon">
+            <span class="sp">amazon scraper</span>
+        <div class="box a" onclick="pro1()">product list</div>
+        <div class="box b">product page</div>
+    </div>
+    <div class="google">
+        <span class="sp">google scraper</span>
+        <div class="box c" onclick="pro2()">scrap google</div>
+        <div class="box d">scrape page</div>
+    </div>
+    <div class="linkin">
+        <span class="sp">linkedin scraper</span>
+        <div class="box e" onclick="pro3()">profile job</div>
+        <div class="box f">business job</div>
+    </div>
+      </div>
+      <p class="sp" id="sp1">Please, note that these rules applicable only for Amazon, Google, Instagram and LInkedIn accordingly! If you want to retrieve the same data for other E-commerce, search engine or social network sites you should specify your own extraction rules*</p>
+
+      <h1 class="it">Build your request</h1>
+
+
+    <div class="col">
+    <h4>enter url to scrape</h4>
+
+    <input type="text" id="i1" class="url">
+    <h2>Data extraction</h2>
+
+    <h4>enter your json extraction rule</h4>
+    <textarea rows="4" cols="50" class="url2" id="i2">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio dolores consequatur exercitationem!</textarea>
+    </div><br>
+    <input type="button" value="start" class="u2 ">
+    <br>
+</div>
+</body>
+
+    <script>
+        function pro1(){
+            document.getElementById('i1').value="https://www.amazon.in/s/?ie=UTF8&keywords=amazon+online+shop&index=aps&ext_vrnc=hi&tag=googinhydr1-21&ref=pd_sl_9f91x711t1_b&adgrpid=58359278625&hvpone=&hvptwo=&hvadid=590830728137&hvpos=&hvnetw=g&hvrand=2374359005913737638&hvqmt=b&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=1007753&hvtargid=kwd-362708604&hydadcr=24994_2265874&gclid=CjwKCAiAleOeBhBdEiwAfgmXf1Vk1caMS3zR8WU18Oc8KgC0Bjm93M_dVH49ZKWS_ZmE6ml2YkaXuBoC0ToQAvD_BwE";
+            document.getElementById('i2').value="amzon xpath"
+        }
+        function pro2()
+        {
+            document.getElementById('i1').value="https://www.google.com/"
+        }
+        function pro3()
+        {
+            document.getElementById('i1').value="linkdedin profiles"
+        }
+    </script>
+
+</body>
+</html>

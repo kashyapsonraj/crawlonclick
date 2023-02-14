@@ -16,6 +16,11 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
+# stripe code
+from django.conf import settings
+import stripe
+from django.urls import reverse
+
 
 # Create your views here.
 def index(request):
@@ -91,7 +96,7 @@ def new_job(request):
     db = connection[config.MONGO_DB_NAME]
     collection = db['jobs']
     total_jobs = len(list(collection.find({})))
-    body = {'job_id': total_jobs+1,
+    body = {'job_id': total_jobs + 1,
             "name": data.get("new_job_name"),
             "website_url": data.get("website_url"),
             "user_id": str(request.user.id),
@@ -155,7 +160,7 @@ def new_contact(request):
     db = connection[config.MONGO_DB_NAME]
     collection = db['contacts']
     total_jobs = len(list(collection.find({})))
-    body = {'contact_id': total_jobs+1,
+    body = {'contact_id': total_jobs + 1,
             "full_name": data.get("full_name"),
             "email": data.get("email"),
             "phone": data.get("phone"),
@@ -217,3 +222,33 @@ def about(request):
 
 def contact(request):
     return render(request, 'contact.html')
+
+
+@login_required
+def subscription(request):
+    stripe.api_key = settings.STRIPE_SECRET_KEY
+    session = stripe.checkout.Session.create(
+        payment_method_types=['card'],
+        line_items=[{
+            'price': 'price_1MaYAYSIC5v4grMxXSIulYqz',
+            'quantity': 1,
+        }],
+        mode='payment',
+        success_url=request.build_absolute_uri(reverse('thanks')) + '?session_id={CHECKOUT_SESSION_ID}',
+        cancel_url=request.build_absolute_uri(reverse('subscription')),
+    )
+    context = {
+        'session_id': session.id,
+        'stripe_public_key': settings.STRIPE_PUBLISHABLE_KEY,
+    }
+    return render(request, 'subscription.html', context)
+
+
+def thanks(request):
+    return render(request, 'thanks.html')
+
+
+@login_required
+def query(request):
+    template = 'query.html'
+    return render(request, template)
