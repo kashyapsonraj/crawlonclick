@@ -9,4 +9,3 @@ MONGO_PORT = os.getenv("MONGO_HOST", 27017)
 MONGO_USER = 'kashyap'
 MONGO_PASSWORD = 'Kashyap111$'
 MONGO_DB_NAME = 'testing_scrapy_mongo_db'
-

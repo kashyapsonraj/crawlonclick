@@ -15,7 +15,7 @@ Activate your virtual environment--> djangovenv\Scripts\activate
 > python manage.py migrate
 > create the superuser in admin login--> python manage.py createsuperuser
 username: admin
-email: sonrajbrijesh@gmail.com
+email: kashyapsonraj@gmail.com
 password: admin$
 
 > in setting.py add ur app in installed apps--> like 'crawling_ui'

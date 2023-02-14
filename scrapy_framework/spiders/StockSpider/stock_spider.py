@@ -9,7 +9,7 @@ class StockSpider(scrapy.Spider):
     def parse(self, response):
         yield {
             "client_identifier": self.client_identifier,
-            "Symbol": 'JHJM',
+            "Symbol": '1',
             "timestamp": datetime.now()
         }
 
