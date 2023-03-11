@@ -45,6 +45,11 @@ def signup(request):
                 password=data.get("password")
             )
             user.save()
+            connection = MongoDBUtil.get_conn()
+            db = connection[config.MONGO_DB_NAME]
+            collection = db['users']
+            body = {}
+            collection.insert_one(body)
             return render(request, signin_template)
     else:
         return render(request, signup_template)
@@ -69,7 +74,7 @@ def signin(request):
 @login_required
 def logout_view(request):
     logout(request)
-    return redirect("/")
+    return redirect("index")
 
 
 @login_required
@@ -219,6 +224,11 @@ def pricing(request):
 def about(request):
     return render(request, 'about.html')
 
+@login_required
+def quick(request):
+    template = 'quick.html'
+    return render(request, template)
+
 
 def contact(request):
     return render(request, 'contact.html')
@@ -252,3 +262,9 @@ def thanks(request):
 def query(request):
     template = 'query.html'
     return render(request, template)
+
+def dashboard(request):
+    return render(request, 'dashboard.html')
+
+
+
