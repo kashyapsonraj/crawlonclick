@@ -1,25 +1,32 @@
-import os
+import requests
 import json
 import time
-
-import requests
-
-from django.shortcuts import render, redirect
+import os
+from datetime import timedelta
 from django.contrib import messages
-from django.conf import settings
-from django.http import HttpResponse, Http404
-from django.core.mail import send_mail, EmailMessage
+
 from core.db_util import MongoDBUtil
 from core import config, logger, constant
-
-from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 # stripe code
-from django.conf import settings
 import stripe
 from django.urls import reverse
+
+# REST FRAMEWORK
+from django.contrib.auth import authenticate
+from rest_framework_simplejwt.tokens import RefreshToken
+from django.conf import settings
+from django.utils import timezone
+from django.contrib.auth.models import User
+
+# chat system
+from django.shortcuts import render, redirect
+from crawling_ui.models import Room, Message
+from django.http import HttpResponse, JsonResponse
+import random
+import string
 
 
 # Create your views here.
@@ -45,7 +52,18 @@ def signup(request):
                 password=data.get("password")
             )
             user.save()
-            return render(request, signin_template)
+            refresh = RefreshToken.for_user(user)
+            access_token = str(refresh.access_token)
+            access_token_expiration = timezone.now() + timedelta(
+                seconds=settings.SIMPLE_JWT['ACCESS_TOKEN_LIFETIME'].total_seconds())
+            # Store access_token_expiration value in session
+            request.session['access_token_expiration'] = access_token_expiration.strftime('%Y-%m-%d %H:%M:%S')
+            # Store access_token in a cookie
+            response = render(request, signin_template)
+            response.set_cookie('access_token', access_token,
+                                max_age=settings.SIMPLE_JWT['ACCESS_TOKEN_LIFETIME'].total_seconds())
+            print(access_token)
+            return response
     else:
         return render(request, signup_template)
 
@@ -58,7 +76,7 @@ def signin(request):
         if user:
             login(request, user)
             messages.add_message(request, messages.SUCCESS, 'Successfully Login.')
-            return redirect('/home')
+            return redirect('home')
         else:
             messages.add_message(request, messages.ERROR, 'Username or Password Incorrect.')
             return redirect('/signin')
@@ -108,6 +126,10 @@ def new_job(request):
     else:
         logger.info("create new job." + str(body))
         collection.insert_one(body)
+        #  random string of 12 characters
+        job_id_chat = '-'.join(''.join(random.choices(string.ascii_uppercase + string.digits, k=4)) for _ in range(3))
+        # Store in the session
+        request.session['job_id_chat'] = job_id_chat
     jobs = list(collection.find({'user_id': str(request.user.id), 'status': 'ACTIVE'}))
     logger.info("jobs: " + str(jobs))
     return render(request, 'home.html', {"jobs": jobs})
@@ -183,11 +205,11 @@ def runspider(request):
             return download(request, job_info, str(job_info.get("jobid")), data.get("spider_name"))
         else:
             messages.add_message(request, messages.WARNING,
-                                 'Error in running the Spider. Please contact admin sonrajbrijesh@gmail.com')
+                                 'Error in running the Spider. Please contact admin sonrajkashyap@gmail.com')
             return redirect("/home")
     elif request.POST and not data.get("spider_name"):
         messages.add_message(request, messages.WARNING,
-                             'Spider is not attached yet. Please contact admin sonrajbrijesh@gmail.com')
+                             'Spider is not attached yet. Please contact admin sonrajkashyap@gmail.com')
         return redirect("/home")
     else:
         return redirect("/home")
@@ -227,7 +249,27 @@ def contact(request):
 @login_required
 def subscription(request):
     stripe.api_key = settings.STRIPE_SECRET_KEY
-    session = stripe.checkout.Session.create(
+    session_1 = stripe.checkout.Session.create(
+        payment_method_types=['card'],
+        line_items=[{
+            'price': 'price_1MaYAYSIC5v4grMxXSIulYqz',
+            'quantity': 1,
+        }],
+        mode='payment',
+        success_url=request.build_absolute_uri(reverse('thanks')) + '?session_id={CHECKOUT_SESSION_ID}',
+        cancel_url=request.build_absolute_uri(reverse('subscription')),
+    )
+    session_2 = stripe.checkout.Session.create(
+        payment_method_types=['card'],
+        line_items=[{
+            'price': 'price_1MaYAYSIC5v4grMxXSIulYqz',
+            'quantity': 1,
+        }],
+        mode='payment',
+        success_url=request.build_absolute_uri(reverse('thanks')) + '?session_id={CHECKOUT_SESSION_ID}',
+        cancel_url=request.build_absolute_uri(reverse('subscription')),
+    )
+    session_3 = stripe.checkout.Session.create(
         payment_method_types=['card'],
         line_items=[{
             'price': 'price_1MaYAYSIC5v4grMxXSIulYqz',
@@ -238,7 +280,9 @@ def subscription(request):
         cancel_url=request.build_absolute_uri(reverse('subscription')),
     )
     context = {
-        'session_id': session.id,
+        'session_id_1': session_1.id,
+        'session_id_2': session_2.id,
+        'session_id_3': session_3.id,
         'stripe_public_key': settings.STRIPE_PUBLISHABLE_KEY,
     }
     return render(request, 'subscription.html', context)
@@ -258,3 +302,71 @@ def query(request):
 def quick(request):
     template = 'quick.html'
     return render(request, template)
+
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
+
+@login_required
+def dashboard(request):
+    template = 'dashboard.html'
+    # access_token = 'this is token'
+    access_token = request.COOKIES.get('access_token')
+
+    # Retrieve access_token_expiration value from session
+    access_token_expiration = request.session.get('access_token_expiration')
+
+    context = {
+        'access_token': access_token,
+        'remaining_time': access_token_expiration,
+    }
+
+    return render(request, template, context)
+
+
+def home1(request):
+    # get id of chat
+    job_id_chat = request.session.get('job_id_chat')
+    context = {
+        'chat_id': job_id_chat
+    }
+    return render(request, 'chat.html', context)
+
+
+def room(request, room):
+    username = request.GET.get('username')
+    room_details = Room.objects.get(name=room)
+    return render(request, 'room.html', {
+        'username': username,
+        'room': room,
+        'room_details': room_details
+    })
+
+
+def checkview(request):
+    room = request.POST['room_name']
+    username = request.POST['username']
+
+    if Room.objects.filter(name=room).exists():
+        return redirect('/' + room + '/?username=' + username)
+    else:
+        new_room = Room.objects.create(name=room)
+        new_room.save()
+        return redirect('/' + room + '/?username=' + username)
+
+
+def send(request):
+    message = request.POST['message']
+    username = request.POST['username']
+    room_id = request.POST['room_id']
+
+    new_message = Message.objects.create(value=message, user=username, room=room_id)
+    new_message.save()
+    return HttpResponse('Message sent successfully')
+
+
+def getMessages(request, room):
+    room_details = Room.objects.get(name=room)
+
+    messages = Message.objects.filter(room=room_details.id)
+    return JsonResponse({"messages": list(messages.values())})

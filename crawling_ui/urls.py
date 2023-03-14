@@ -32,9 +32,14 @@ urlpatterns = [
     path('contact', views.contact, name='contact'),
     path('about', views.about, name='about'),
     path('subscription', views.subscription, name='subscription'),
-    # path('dumy', views.dumy, name='dumy'),
     path('thanks/', views.thanks, name='thanks'),
-    path('query', views.query, name='query'),
+    path('query/', views.query, name='query'),
     path('quick', views.quick, name='quick'),
+    path('dashboard/', views.dashboard, name='dashboard'),
     # path('checkout/', views.checkout, name='checkout')
+    path('home1', views.home1, name='home1'),
+    path('<str:room>/', views.room, name='room'),
+    path('checkview', views.checkview, name='checkview'),
+    path('send', views.send, name='send'),
+    path('getMessages/<str:room>/', views.getMessages, name='getMessages'),
 ]

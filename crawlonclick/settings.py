@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os      # for template path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -34,7 +35,14 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'crawlonclick.com']
 STRIPE_SECRET_KEY = 'sk_test_51MaWUuSIC5v4grMxkfSLowKl5jGkmk7P1N1HHPi98wJMLTnopMVnwAULHAhMAQMKxbFWRU0uYi44GwCWKXO3omIv00T8Wo49y8'
 STRIPE_PUBLISHABLE_KEY = 'pk_test_51MaWUuSIC5v4grMx4pFpRkhpfmf6b5y7HiLt1ll3XWWvOxTLzzS7pvWHVWpLbxORrK4IXcauAWORdyuGAvn3A7wk00mFz5ogRh'
 
+# jwt
 
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=2),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=3),
+    "AUTH_HEADER_TYPES": ("Bearer",),
+    "AUTH_HEADER_NAME": "HTTP_AUTHORIZATION",
+}
 
 
 

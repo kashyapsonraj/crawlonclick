@@ -72,7 +72,7 @@
 </div>
 <!-- ====== Hero Section End -->
 <br/><br/>
-<p style="color: blue;">Once new Job will be created, Admin will contact you for more details or else please contact sonrajbrijesh@gmail.com</p>
+<p style="color: blue;">Once new Job will be created, Admin will contact you for more details or else please contact sonrajkashyap@gmail.com</p>
 <form action="{% url 'new_job' %}" method="post">
     {% csrf_token %}
     <input
@@ -144,6 +144,7 @@
         <th>Job Name</th>
         <th>Spider Name</th>
         <th>Website URL</th>
+        <th>Chat</th>
         <th>Run</th>
         {% if user.is_superuser %}
         <th>Action</th>
@@ -159,6 +160,9 @@
         <TD class="c1">{{job.name}}</TD>
         <TD class="c2">{{job.spider_name}}</TD>
         <TD class="c3">{{job.website_url}}</TD>
+        <TD class="c6"><button onclick="redirectToChat()" class=" rounded-md border border-primary py-1 px-3 bg-primary text-base text-white cursor-pointer hover:shadow-md transition duration-300 ease-in-out">
+            Start
+        </button> </TD>
         <TD class="c4">
             <form action="{% url 'runspider' %}" method="post">
                 {% csrf_token %}
@@ -214,5 +218,10 @@
 </table>
 {% endif %}
 </body>
+<script>
+  function redirectToChat() {
+    window.location.href = "home1";
+  }
+</script>
 </html>
 
