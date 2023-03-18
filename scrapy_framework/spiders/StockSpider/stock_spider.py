@@ -1,6 +1,7 @@
 import scrapy
 from datetime import datetime
 
+
 class StockSpider(scrapy.Spider):
     name = "StockSpider"
     start_urls = ['http://www.google.com']
@@ -12,4 +13,3 @@ class StockSpider(scrapy.Spider):
             "Symbol": 'JHJM',
             "timestamp": datetime.now()
         }
-

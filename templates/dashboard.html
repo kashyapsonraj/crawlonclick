@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<body>
+<div class="m">
+  <div class="flex flex-wrap w-full mb-20 flex-col items-center text-center" style="background-color: rgb(48 86 211);
+    color:white; padding: 44px;">
+    <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2">Dashboard</h1>
+    <p class="lg:w-1/2 w-full leading-relaxed">your dashboard represent your status of
+        Remaining Hit Count,provide api key etc.</p>
+  </div>
+  </div>
+  <div class="grid grid-cols-2 gap-12 mx-10 mx-auto" style="margin-top: 143px;">
+    <div class="bg-gray-100 p-8 mx-10" style="background: #fff;
+        box-shadow: 0 2px 8px #cfe4ff;">
+      <h2 class="text-lg text-gray-900 font-medium title-font mb-2">Api key</h2>
+      <p id="access-token" class="leading-relaxed text-base bg-gray-300" style="max-height: 300px; overflow-y: auto;">{{access_token}}</p>
+      <button id="copy-btn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Copy</button>
+    </div>
+
+    <div class="bg-gray-100 p-8 mx-10" style="background: #fff;
+        box-shadow: 0 2px 8px #cfe4ff;">
+      <h2 class="text-lg text-gray-900 font-medium title-font mb-2">Api key session active till</h2>
+      {% if remaining_time %}
+          <p class="leading-relaxed text-base">{{ remaining_time }}</p>
+      {% else %}
+          <p class="leading-relaxed text-base">The access token has expired.</p>
+      {% endif %}
+
+    </div>
+    <div class="bg-gray-100 p-8 mx-10" style="background: #fff;
+        box-shadow: 0 2px 8px #cfe4ff;">
+      <h2 class="text-lg text-gray-900 font-medium title-font mb-2">Remaining Hit</h2>
+      <p class="leading-relaxed text-base">Hit count: <span class="border-gray-200 text-bolt">{{ hit_count }}</span></p>
+    </div>
+  <br>
+  <br>
+  </div>
+<!--      <div class="mx-10 max-w-xs p-10 pr-10">-->
+<!--    <table class="table-auto" style="background: #fff;box-shadow: 0 2px 8px #cfe4ff;width: 122%;">-->
+<!--      <thead>-->
+<!--        <tr>-->
+<!--          <th class="px-4 py-2 font-medium text-gray-900">Your Requests</th>-->
+<!--        </tr>-->
+<!--      </thead>-->
+<!--      <tbody>-->
+<!--        <tr>-->
+<!--          <td class="border px-4 py-2 hover:bg-gray-100">www.google.com</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td class="border px-4 py-2 hover:bg-gray-50">www.amazon.com</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td class="border px-4 py-2 hover:bg-gray-50">www.facebook.com</td>-->
+<!--        </tr>-->
+<!--        &lt;!&ndash; Add more rows as needed &ndash;&gt;-->
+<!--      </tbody>-->
+<!--    </table>-->
+
+<!--    </div>-->
+
+</body>
+<script>
+  const copyBtn = document.querySelector('#copy-btn');
+  const accessToken = document.querySelector('#access-token');
+
+  copyBtn.addEventListener('click', () => {
+    const tempInput = document.createElement('input');
+    tempInput.value = accessToken.textContent;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand('copy');
+    document.body.removeChild(tempInput);
+    copyBtn.textContent = 'Copied';
+  });
+</script>
+</html>

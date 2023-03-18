@@ -114,6 +114,7 @@ def new_job(request):
     db = connection[config.MONGO_DB_NAME]
     collection = db['jobs']
     total_jobs = len(list(collection.find({})))
+    counter = request.session.get('job_counter', 20)
     body = {'job_id': total_jobs + 1,
             "name": data.get("new_job_name"),
             "website_url": data.get("website_url"),
@@ -126,7 +127,9 @@ def new_job(request):
     else:
         logger.info("create new job." + str(body))
         collection.insert_one(body)
-        #  random string of 12 characters
+        counter -= 1
+        request.session['job_counter'] = counter
+        # for chat random string of 12 characters
         job_id_chat = '-'.join(''.join(random.choices(string.ascii_uppercase + string.digits, k=4)) for _ in range(3))
         # Store in the session
         request.session['job_id_chat'] = job_id_chat
@@ -197,7 +200,12 @@ def new_contact(request):
 def runspider(request):
     data = request.POST
     schedule_job_url = 'http://127.0.0.1:6800/schedule.json'
-    if request.POST and data.get("spider_name"):
+    counter = request.session.get('job_counter', 0)
+    if counter <= 0 and not request.user.is_superuser:
+        messages.add_message(request, messages.WARNING,
+                             'Your subscription is over. Please subscribe to create new jobs and run it.')
+        return redirect("/home")
+    elif request.POST and data.get("spider_name"):
         scrapyd_job = requests.post(schedule_job_url,
                                     data={'project': 'default', 'spider': request.POST.get('spider_name')})
         job_info = json.loads(scrapyd_job.content)
@@ -229,7 +237,7 @@ def download(request, job_info, path, spider_name):
                     return response
             else:
                 messages.add_message(request, messages.WARNING,
-                                     'Error running in the Spider. Please contact admin sonrajbrijesh@gmail.com')
+                                     'Error running in the Spider. Please contact admin sonrajkashyap@gmail.com')
                 return redirect("/home")
         time.sleep(1)
 
@@ -313,12 +321,15 @@ def dashboard(request):
     # access_token = 'this is token'
     access_token = request.COOKIES.get('access_token')
 
-    # Retrieve access_token_expiration value from session
+    # Retrieve  value from session
     access_token_expiration = request.session.get('access_token_expiration')
+
+    hit_count = request.session.get('job_counter')
 
     context = {
         'access_token': access_token,
         'remaining_time': access_token_expiration,
+        'hit_count': hit_count,
     }
 
     return render(request, template, context)
