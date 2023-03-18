@@ -33,7 +33,21 @@
 3. Use a more readable tab size.
 4. Use the user's configured `sans` font-family by default.
 */
-
+.col-span-2{
+grid-column: span 2 / span 2;
+}
+.col-span-3{
+grid-column: span 3 / span 3;
+}
+.border-l-8{
+border-left-width: 8px;
+}
+.border-teal-800{
+border-color: rgb(17 94 89);
+}
+.space-y-2{
+	margin-top: 0.5rem;
+}
 html {
   line-height: 1.5;
   /* 1 */
@@ -1372,7 +1386,9 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-top: 3rem;
   padding-bottom: 3rem;
 }
-
+.pr-6{
+padding-right: 1.5rem;
+}
 .pr-16{
   padding-right: 4rem;
 }
@@ -1507,6 +1523,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .italic{
   font-style: italic;
+}
+.leading-6{
+line-height: 1.5rem;
 }
 
 .leading-loose{
