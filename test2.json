@@ -1,0 +1,272 @@
+{
+                     "combinedTotalEarnings":61738.72,
+                     "offerConsultations":false,
+                     "jobSummariesRids":null,
+                     "personId":"1248300676459872256",
+                     "profileId":null,
+                     "totalCompletedJobs":65,
+                     "rankInfo":null,
+                     "vetted":null,
+                     "profile":{
+                        "identity":{
+                           "id":"1248300676459872256",
+                           "ciphertext":"~01f1af902dd3470212"
+                        },
+                        "personAvailability":{
+                           "purchasedInvitationBadge":{
+                              "active":true
+                           }
+                        },
+                        "personalData":{
+                           "title":"LinkedIn Expert, Lead Generation, Data Collection, Web Research, CRM",
+                           "firstName":"Muhammad Zeshan",
+                           "lastName":"J.",
+                           "description":"✌160+ Jobs ✌ $60K+ Earned ✌ 10000+ Hours Worked\n\nI'm Muhammad Zeshan Javaid, and I specialize in strategic sourcing and lead generation. I have a strong track record of creating solid connections and relationships, and I excel at identifying individuals who align perfectly with your organizational goals. My experience encompasses both active and passive candidate sourcing across diverse industries on a global scale.\n\nWith over 7 years of expertise, I've effectively located candidates in regions like North America, UK, EMEA, APAC, and South Africa. My skill set includes proficiency in various tools like Podio, Bullhorn, Lever, Salesforce, Zoho, HubSpot, and more. I'm a research enthusiast, excelling in areas such as Lead Generation, LinkedIn-based Research, B2B Lead Generation, Email Sourcing, Web Research, and Data Scraping.\n\nI've sourced talent for roles ranging from Software Engineers to Data Scientists and beyond. My main sources are LinkedIn Sales Navigator, LinkedIn Recruiter, Yellowpages, Crunchbase, and more, and I also verify leads and emails through tools like RocketReach, Snovio, Lusha, Zoominfo, and Apollo.\n\nI'm excited to contribute my skills and experience to your team. Let's get started on achieving your goals together!\n\nThank you,\nMuhammad Zeshan Javaid",
+                           "location":{
+                              "country":"Pakistan",
+                              "state":"Punjab",
+                              "city":"Bahawalpur",
+                              "region":"Asia",
+                              "subregion":"Southern Asia",
+                              "timezone":"UTC+05:00 Islamabad, Karachi",
+                              "zip":"63100"
+                           },
+                           "chargeRate":{
+                              "rawValue":"5.5",
+                              "currency":"USD"
+                           },
+                           "portrait":{
+                              "portrait100":"https://www.upwork.com/profile-portraits/c1xX6ejxDY-7rsR9WzKbJObXoa1wpiA0-aI-lhOaOZJY-D-W5tEYgMMFldIxkovBsR"
+                           },
+                           "profileUrl":"https://upwork.com/freelancers/muhammadzeshanj"
+                        },
+                        "skills":[
+                           {
+                              "ontologySkill":{
+                                 "id":"1534904453491408896",
+                                 "preferredLabel":"List Building",
+                                 "prettyName":null,
+                                 "definition":null
+                              }
+                           },
+                           {
+                              "ontologySkill":{
+                                 "id":"1031626753582809088",
+                                 "preferredLabel":"Lead Generation",
+                                 "prettyName":null,
+                                 "definition":null
+                              }
+                           },
+                           {
+                              "ontologySkill":{
+                                 "id":"1031626730136649728",
+                                 "preferredLabel":"Data Entry",
+                                 "prettyName":null,
+                                 "definition":null
+                              }
+                           },
+                           {
+                              "ontologySkill":{
+                                 "id":"1110580527243972608",
+                                 "preferredLabel":"Contact List",
+                                 "prettyName":null,
+                                 "definition":null
+                              }
+                           },
+                           {
+                              "ontologySkill":{
+                                 "id":"1484275203674132480",
+                                 "preferredLabel":"LinkedIn Sales Navigator",
+                                 "prettyName":null,
+                                 "definition":null
+                              }
+                           },
+                           {
+                              "ontologySkill":{
+                                 "id":"1031626730405085184",
+                                 "preferredLabel":"Data Scraping",
+                                 "prettyName":null,
+                                 "definition":null
+                              }
+                           },
+                           {
+                              "ontologySkill":{
+                                 "id":"1031626730287644672",
+                                 "preferredLabel":"Data Mining",
+                                 "prettyName":null,
+                                 "definition":null
+                              }
+                           },
+                           {
+                              "ontologySkill":{
+                                 "id":"1031626709379039232",
+                                 "preferredLabel":"Administrative Support",
+                                 "prettyName":null,
+                                 "definition":null
+                              }
+                           },
+                           {
+                              "ontologySkill":{
+                                 "id":"1534904229452660736",
+                                 "preferredLabel":"Prospect List",
+                                 "prettyName":null,
+                                 "definition":null
+                              }
+                           },
+                           {
+                              "ontologySkill":{
+                                 "id":"1052162208978227205",
+                                 "preferredLabel":"LinkedIn",
+                                 "prettyName":null,
+                                 "definition":null
+                              }
+                           },
+                           {
+                              "ontologySkill":{
+                                 "id":"1031626730023403520",
+                                 "preferredLabel":"Data Collection",
+                                 "prettyName":null,
+                                 "definition":null
+                              }
+                           },
+                           {
+                              "ontologySkill":{
+                                 "id":"1031626795232247808",
+                                 "preferredLabel":"Online Research",
+                                 "prettyName":null,
+                                 "definition":null
+                              }
+                           },
+                           {
+                              "ontologySkill":{
+                                 "id":"1110580716868456448",
+                                 "preferredLabel":"Transaction Data Entry",
+                                 "prettyName":null,
+                                 "definition":null
+                              }
+                           },
+                           {
+                              "ontologySkill":{
+                                 "id":"1204836473864568832",
+                                 "preferredLabel":"Research & Strategy",
+                                 "prettyName":null,
+                                 "definition":null
+                              }
+                           }
+                        ],
+                        "projectList":{
+                           "projects":[
+                              {
+                                 "id":"1631739460387356672",
+                                 "title":"Angel Investor Finding with Email",
+                                 "projectUrl":null,
+                                 "thumbnail":"/att/download/portfolio/persons/uid/1248300676459872256/profile/projects/files/a66cc8c9-93bb-41cb-a7d2-2f9126074152",
+                                 "category":null,
+                                 "categoryId":null,
+                                 "subCategory":null,
+                                 "description":"I have provided angel investor on the client demand. I have provided verified email addresses with twitter & Angel link",
+                                 "videoUrl":null,
+                                 "public":true
+                              },
+                              {
+                                 "id":"1267915067253911552",
+                                 "title":"Web Researcher",
+                                 "projectUrl":null,
+                                 "thumbnail":"/att/download/portfolio/persons/uid/1248300676459872256/profile/projects/files/1267914915066707968",
+                                 "category":"Sales & Marketing",
+                                 "categoryId":"531770282597445634",
+                                 "subCategory":"Lead Generation & Telemarketing",
+                                 "description":"I am Expert in researching techniques. I have 2years experience in this field.",
+                                 "videoUrl":null,
+                                 "public":true
+                              },
+                              {
+                                 "id":"1267912573668003840",
+                                 "title":"Social Media Collection",
+                                 "projectUrl":"https://docs.google.com/spreadsheets/d/1e-XCbx7wmFL0zhyy2VudPuEtXr26BGrtwuPzT9BKJdI/edit#gid=0",
+                                 "thumbnail":"/att/download/portfolio/persons/uid/1248300676459872256/profile/projects/files/1267912132814458880",
+                                 "category":"Sales & Marketing",
+                                 "categoryId":"531770282597445634",
+                                 "subCategory":"Lead Generation & Telemarketing",
+                                 "description":"Social Media Collection From the Linkedin Company post. I have to collects the data of the persons who will like & comments on the client's company post",
+                                 "videoUrl":null,
+                                 "public":true
+                              },
+                              {
+                                 "id":"1267910760905601024",
+                                 "title":"Find Executive Level Contacts",
+                                 "projectUrl":"https://docs.google.com/spreadsheets/d/1sZE_vXuA90a8gmzclSMx7d7xoFrQxf_ieSzJyllxvqI/edit#gid=0",
+                                 "thumbnail":"/att/download/portfolio/persons/uid/1248300676459872256/profile/projects/files/1267909226483187714",
+                                 "category":"Sales & Marketing",
+                                 "categoryId":"531770282597445634",
+                                 "subCategory":"Lead Generation & Telemarketing",
+                                 "description":"-Find Executive Level Contacts\n-Plumbing & Heating Companies\n-Specialized Cities\n-Verified Emails",
+                                 "videoUrl":null,
+                                 "public":true
+                              },
+                              {
+                                 "id":"1267897170333655040",
+                                 "title":"Finding UK Based Contacts",
+                                 "projectUrl":"https://docs.google.com/spreadsheets/d/1qJ7GKK2pk1kw5L_MG3zdDPxFU6-62PI6zN33R3wHUY8/edit#gid=1491994907",
+                                 "thumbnail":"/att/download/portfolio/persons/uid/1248300676459872256/profile/projects/files/1267896560558350336",
+                                 "category":"Sales & Marketing",
+                                 "categoryId":"531770282597445634",
+                                 "subCategory":"Lead Generation & Telemarketing",
+                                 "description":"-Finds the Operation titles from the companies\n-Contacts location is UK only\n-Find work email",
+                                 "videoUrl":null,
+                                 "public":true
+                              },
+                              {
+                                 "id":"1267877940683313152",
+                                 "title":"SEO Agencies",
+                                 "projectUrl":"https://docs.google.com/spreadsheets/d/1tGmuBaNK23re9yqKrtBzrcTpHgU8suZwK0ahjUXiP54/edit#gid=0",
+                                 "thumbnail":"/att/download/portfolio/persons/uid/1248300676459872256/profile/projects/files/1267869283929083904",
+                                 "category":"Sales & Marketing",
+                                 "categoryId":"531770282597445634",
+                                 "subCategory":"Lead Generation & Telemarketing",
+                                 "description":"SEO Agencies\n-Employee size (201-500)\n-Located in USA except New York\n-Yearly Revenue\n\nContact Information\n-Name\n-Title (Marketing. Sales)\n-Work Email (personal & info not allowed)\n-Linkedin Profile\n-Company phone number",
+                                 "videoUrl":null,
+                                 "public":true
+                              },
+                              {
+                                 "id":"1254817426627817472",
+                                 "title":"Lead Generation",
+                                 "projectUrl":null,
+                                 "thumbnail":"/att/download/portfolio/persons/uid/1248300676459872256/profile/projects/files/1254817327940325376",
+                                 "category":"Sales & Marketing",
+                                 "categoryId":"531770282597445634",
+                                 "subCategory":"Lead Generation & Telemarketing",
+                                 "description":null,
+                                 "videoUrl":null,
+                                 "public":true
+                              }
+                           ]
+                        },
+                        "verifications":{
+                           "idBadgeStatus":"PASSED",
+                           "idVerified":false
+                        },
+                        "agencies":{
+                           "defaultAgencyId":null,
+                           "agencies":[
+
+                           ]
+                        },
+                        "preferences":{
+                           "hideEarnings":false,
+                           "hideJss":false
+                        },
+                        "profileAggregates":{
+                           "nSS100BwScore":0.8765,
+                           "topRatedStatus":"not_eligible",
+                           "topRatedPlusStatus":"not_eligible",
+                           "totalHours":10173.499997,
+                           "totalHourlyJobs":95,
+                           "totalEarnings":61738.72,
+                           "totalFixedJobs":89
+                        },
+                        "communityCertificates":[
+
+                        ]
+                     }
+                  },
