@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-lqqhiu)^gf97j)26zjl#nx66=x&4f3_r1@vp+r=lq3$9(1qtqu
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'crawlonclick.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'pyscrape.com']
 
 
 # stripe keys

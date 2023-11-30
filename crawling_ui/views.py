@@ -188,11 +188,11 @@ def runspider(request):
             return download(request, job_info, str(job_info.get("jobid")), data.get("spider_name"))
         else:
             messages.add_message(request, messages.WARNING,
-                                 'Error in running the Spider. Please contact admin kashyapsonraj@gmail.com')
+                                 'Error in running the Spider. Please Contact Admin.')
             return redirect("/home")
     elif request.POST and not data.get("spider_name"):
         messages.add_message(request, messages.WARNING,
-                             'Spider is not attached yet. Please contact admin kashyapsonraj@gmail.com')
+                             'Spider is not attached yet. Please Contact Admin.')
         return redirect("/home")
     else:
         return redirect("/home")
@@ -212,7 +212,7 @@ def download(request, job_info, path, spider_name):
                     return response
             else:
                 messages.add_message(request, messages.WARNING,
-                                     'Error running in the Spider. Please contact admin kashyapsonraj@gmail.com')
+                                     'Error running in the Spider. Please Contact Admin.')
                 return redirect("/home")
         time.sleep(1)
 

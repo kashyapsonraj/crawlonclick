@@ -36,14 +36,14 @@
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: #04aaa4;
+  background-color: #3056D3;
   color: white;
 }
 #contacts th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: #04aaa4;
+  background-color: #3056D3;
   color: white;
 }
 </style>
@@ -72,7 +72,8 @@
 </div>
 <!-- ====== Hero Section End -->
 <br/><br/>
-<p style="color: blue;">Once new Job will be created, Admin will contact you for more details or else please contact kashyapsonraj@gmail.com</p>
+<div class="container">
+<p style="color: blue;">Once new Job will be created, Admin will contact you for more details or else please contact admin sonrajbrijesh@gmail.com.</p>
 <form action="{% url 'new_job' %}" method="post">
     {% csrf_token %}
     <input
@@ -134,9 +135,21 @@
     />
 </form>
 </br></br>
-
 <table id="jobs">
-    <tr>
+    <tr class="
+                      rounded-md
+                      border
+                      bordder-primary
+                      py-3
+                      px-5
+                      bg-primary
+                      text-base text-white
+                      cursor-pointer
+                      hover:shadow-md
+                      transition
+                      duration-300
+                      ease-in-out
+                    ">
         <th style="display:none;">Job ID</th>
         {% if user.is_superuser %}
         <th>User ID</th>
@@ -213,6 +226,7 @@
     {% endfor %}
 </table>
 {% endif %}
+</div>
 </body>
 </html>
 
