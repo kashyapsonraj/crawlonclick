@@ -45,12 +45,19 @@ def signup(request):
                 password=data.get("password")
             )
             user.save()
+            # create new user with the credit 5
             connection = MongoDBUtil.get_conn()
             db = connection[config.MONGO_DB_NAME]
             collection = db['users']
-            body = {}
+            body = {'user_id': user.id, 'credit': 5}
             collection.insert_one(body)
-            return render(request, signin_template)
+            login(request, user)
+            request.POST = {"new_job_name": 'Test Job',
+                            "website_url": 'https://webscraper.io/test-sites',
+                            'spider_name': 'TestSpider'
+                            }
+            new_job(request)
+            return redirect('/home')
     else:
         return render(request, signup_template)
 
@@ -79,6 +86,7 @@ def logout_view(request):
 
 @login_required
 def home(request):
+    # jobs
     connection = MongoDBUtil.get_conn()
     db = connection[config.MONGO_DB_NAME]
     collection = db['jobs']
@@ -87,11 +95,17 @@ def home(request):
         required_condition.update({'user_id': str(request.user.id)})
     jobs = list(collection.find(required_condition))
     logger.info("jobs: " + str(jobs))
+    # contacts
     collection = db['contacts']
     required_condition = {'status': 'ACTIVE'}
     contacts = list(collection.find(required_condition))
     logger.info("contacts: " + str(contacts))
-    return render(request, 'home.html', {"jobs": jobs, "contacts": contacts})
+    # user info
+    collection = db['users']
+    required_condition = {'user_id': request.user.id}
+    django_user = list(collection.find(required_condition))[0]
+    logger.info("User: " + str(django_user))
+    return render(request, 'home.html', {"jobs": jobs, "contacts": contacts, "django_user": django_user})
 
 
 @login_required
@@ -106,6 +120,8 @@ def new_job(request):
             "website_url": data.get("website_url"),
             "user_id": str(request.user.id),
             "status": 'ACTIVE'}
+    if data.get("spider_name"):
+        body.update({'spider_name': data.get('spider_name')})
     jobs = list(collection.find({'user_id': str(request.user.id), 'status': 'ACTIVE'}))
     job_names = [job["name"].lower() for job in jobs]
     if body.get("name").lower() in job_names:
@@ -180,16 +196,28 @@ def new_contact(request):
 def runspider(request):
     data = request.POST
     schedule_job_url = 'http://127.0.0.1:6800/schedule.json'
-    if request.POST and data.get("spider_name"):
+    connection = MongoDBUtil.get_conn()
+    db = connection[config.MONGO_DB_NAME]
+    jobs_collection = db['jobs']
+    spider_info = list(jobs_collection.find({'spider_name': request.POST.get('spider_name'),
+                                        'user_id': str(request.user.id)}))
+    user_collection = db['users']
+    credit = list(user_collection.find({'user_id': request.user.id}))[0].get('credit')
+    if request.POST and spider_info and credit:
         scrapyd_job = requests.post(schedule_job_url,
                                     data={'project': 'default', 'spider': request.POST.get('spider_name')})
         job_info = json.loads(scrapyd_job.content)
         if scrapyd_job.status_code == constant.HTTP_OK:
+            user_collection.update_one({'user_id': request.user.id}, {'$set': {'credit': credit - 1}})
             return download(request, job_info, str(job_info.get("jobid")), data.get("spider_name"))
         else:
             messages.add_message(request, messages.WARNING,
                                  'Error in running the Spider. Please Contact Admin.')
             return redirect("/home")
+    elif not credit:
+        messages.add_message(request, messages.WARNING,
+                             'Buy more credits. Please Contact Admin.')
+        return redirect("/home")
     elif request.POST and not data.get("spider_name"):
         messages.add_message(request, messages.WARNING,
                              'Spider is not attached yet. Please Contact Admin.')
