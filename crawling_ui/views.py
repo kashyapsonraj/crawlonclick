@@ -103,7 +103,7 @@ def home(request):
     # user info
     collection = db['users']
     required_condition = {'user_id': request.user.id}
-    django_user = list(collection.find(required_condition))[0]
+    django_user = list(collection.find(required_condition))[0] if list(collection.find(required_condition)) else []
     logger.info("User: " + str(django_user))
     return render(request, 'home.html', {"jobs": jobs, "contacts": contacts, "django_user": django_user})
 
@@ -200,9 +200,9 @@ def runspider(request):
     db = connection[config.MONGO_DB_NAME]
     jobs_collection = db['jobs']
     spider_info = list(jobs_collection.find({'spider_name': request.POST.get('spider_name'),
-                                        'user_id': str(request.user.id)}))
+                                        'user_id': str(request.user.id)})) if not request.user.is_superuser else True
     user_collection = db['users']
-    credit = list(user_collection.find({'user_id': request.user.id}))[0].get('credit')
+    credit = list(user_collection.find({'user_id': request.user.id}))[0].get('credit') if list(user_collection.find({'user_id': request.user.id})) else 1 if request.user.is_superuser else 0
     if request.POST and spider_info and credit:
         scrapyd_job = requests.post(schedule_job_url,
                                     data={'project': 'default', 'spider': request.POST.get('spider_name')})
