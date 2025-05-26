@@ -3,22 +3,17 @@ import datetime
 from functools import wraps
 import sys
 
-logger = logging.getLogger(__name__)
+# Configure a basic logger
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.StreamHandler(stream=sys.stdout)
+    ]
+)
 
-LOGGING = {
-    'version': 1,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-            'stream': sys.stdout,
-        }
-    },
-    'root': {
-        'handlers': ['console'],
-        'level': 'INFO'
-    }
-}
-logging.config.dictConfig(LOGGING)
+# Create a logger instance
+logger = logging.getLogger(__name__)
 
 
 def info(msg):
@@ -27,6 +22,10 @@ def info(msg):
 
 def error(msg):
     logger.error(msg)
+
+
+def warning(msg):
+    logger.warning(msg)
 
 
 def decorate_log(fn):
